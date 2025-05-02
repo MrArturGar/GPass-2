@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="GPass.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GPass.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:elements="using:GPass.Views.Elements"
+    mc:Ignorable="d"
+    Title="MainWindow">
+
+    <Grid x:Name="RootGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" x:Name="Column1" MinWidth="200" />
+            <ColumnDefinition Width="3*" x:Name="Column2" MinWidth="200" />
+            <ColumnDefinition Width="4*" x:Name="Column3" MinWidth="200" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollView Grid.Column="0">
+            <elements:PoolListControl 
+            ItemsSource="{Binding PoolLists}"
+            SelectedItem="{Binding SelectedPoolList, Mode=TwoWay}"
+            AddCommand="{Binding AddPoolListCommand}"
+            ToggleEditCommand="{Binding TogglePoolListEditCommand}"
+            IsEditing="{Binding IsPoolListEditing, Mode=TwoWay}"/>
+        </ScrollView>
+
+        <ScrollView Grid.Column="1">
+            <elements:CredPoolControl
+            ItemsSource="{Binding CredentialPools}"
+            SelectedItem="{Binding SelectedCredentialPool, Mode=TwoWay}"
+            AddCommand="{Binding AddCredentialPoolCommand}"
+            ToggleEditCommand="{Binding ToggleCredPoolEditCommand}"
+            IsEditing="{Binding IsCredPoolEditing, Mode=TwoWay}"/>
+        </ScrollView>
+
+        <ScrollView Grid.Column="2">
+            <elements:CredentialsControl
+            ItemsSource="{Binding Credentials}"
+            AddCommand="{Binding AddCredentialCommand}"
+            ToggleEditCommand="{Binding ToggleCredentialEditCommand}"
+            IsEditing="{Binding IsCredentialEditing, Mode=TwoWay}"/>
+        </ScrollView>
+    </Grid>
+</Window>

@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations":[{
+      "name": ".NET Core Launch (console)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      // if target frameworks was changed, update program path.
+      "program": 
+        "${workspaceFolder}/GPass/bin/Debug/net8.0-windows10.0.19041.0/win-x64/GPass.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/GPass",
+        // 'console' field https://aka.ms/VSCode-CS-LaunchJson-Console
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "justMyCode": true
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach"
+    }]
+}
