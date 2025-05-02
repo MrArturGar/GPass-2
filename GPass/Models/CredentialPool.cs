@@ -11,12 +11,14 @@ namespace GPass.Models
     {
         public required string Name { get; set; }
         public required ObservableCollection<ICredential> Credentials { get; set; }
+        public required int Order { get; set; }
 
         public static CredentialPool GetTestPlaceholders()
         {
             return new()
             {
                 Name = "Test CredentialPool",
+                Order = 1,
                 Credentials = [
                     new CredTitle() { Title = "Test title" }, 
                     new CredField() { Field = "Test field" }, 

@@ -96,5 +96,16 @@ namespace GPass.Views.Elements
             ButtonAdd.Visibility = Visibility.Collapsed;
             ButtonEdit.Visibility = Visibility.Collapsed;
         }
+
+        private void NameList_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
+        {
+            if (ItemsSource is IList<ICredential> list)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    list[i].Order = i;
+                }
+            }
+        }
     }
 }

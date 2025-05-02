@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace GPass.Helpers
+namespace GPass.Resources
 {
     public class CredentialTemplateSelector : DataTemplateSelector
     {

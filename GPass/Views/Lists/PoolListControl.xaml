@@ -39,7 +39,14 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="0" />
+                        <TextBox x:Name="EditBox"
+                         Text="{Binding Name, Mode=TwoWay}" 
+                         BorderBrush="Transparent"
+                         Background="Transparent"
+                         Visibility="{Binding IsEditing, ElementName=PoolListControlRoot, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <TextBlock Text="{Binding Name, Mode=OneWay}" 
+                        Visibility="{Binding IsEditing, ElementName=PoolListControlRoot, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter='Inverted'}"/>
 
                         <StackPanel Orientation="Horizontal"
                             Grid.Column="1"
@@ -47,7 +54,7 @@
                             HorizontalAlignment="Right"
                             Spacing="5"
                             Visibility="{Binding IsEditing, ElementName=PoolListControlRoot, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                            <Button Content="⬍" x:Name="ButtonMove" Padding="0" Height="25" Width="25" />
+                            <TextBlock Text="⬍" HorizontalTextAlignment="Center" Padding="0" Height="20" Width="20" />
                             <Button Content="×" x:Name="ButtonDelete" Padding="0" Height="25" Width="25" />
                         </StackPanel>
                     </Grid>

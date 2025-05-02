@@ -72,9 +72,11 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void AddCredentialPool()
     {
+        var newPoolOrder = SelectedPoolList.CredentialPools.Count + 1;
         var newCreds = new CredentialPool
         {
-            Name = $"New Credentials {SelectedPoolList.CredentialPools.Count + 1}",
+            Name = $"New Credentials {newPoolOrder}",
+            Order = newPoolOrder,
             Credentials = new ObservableCollection<ICredential>()
         };
 
