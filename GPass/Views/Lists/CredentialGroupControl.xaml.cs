@@ -24,9 +24,9 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace GPass.Views.Elements
 {
-    public sealed partial class PoolListControl : UserControl
+    public sealed partial class CredentialGroupControl : UserControl
     {
-        public PoolListControl()
+        public CredentialGroupControl()
         {
             this.InitializeComponent();
         }
@@ -34,37 +34,44 @@ namespace GPass.Views.Elements
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(
                 nameof(ItemsSource),
-                typeof(IEnumerable),
-                typeof(PoolListControl),
+                typeof(ObservableCollection<CredentialGroup>),
+                typeof(CredentialGroupControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
                 nameof(SelectedItem),
-                typeof(object),
-                typeof(PoolListControl),
+                typeof(CredentialGroup),
+                typeof(CredentialGroupControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty AddCommandProperty =
             DependencyProperty.Register(
                 nameof(AddCommand),
                 typeof(ICommand),
-                typeof(PoolListControl),
+                typeof(CredentialGroupControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty ToggleEditCommandProperty =
             DependencyProperty.Register(
                 nameof(ToggleEditCommand),
                 typeof(ICommand),
-                typeof(PoolListControl),
+                typeof(CredentialGroupControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty IsEditingProperty =
             DependencyProperty.Register(
                 nameof(IsEditing),
                 typeof(bool),
-                typeof(PoolListControl),
+                typeof(CredentialGroupControl),
                 new PropertyMetadata(false));
+
+        public static readonly DependencyProperty CancelEditCommandProperty =
+            DependencyProperty.Register(
+                nameof(CancelEditCommand),
+                typeof(ICommand),
+                typeof(CredentialGroupControl),
+                new PropertyMetadata(null));
 
         public ICommand AddCommand
         {
@@ -72,9 +79,9 @@ namespace GPass.Views.Elements
             set => SetValue(AddCommandProperty, value);
         }
 
-        public IEnumerable? ItemsSource
+        public ObservableCollection<CredentialGroup>? ItemsSource
         {
-            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            get => (ObservableCollection<CredentialGroup>?)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
 
@@ -96,30 +103,24 @@ namespace GPass.Views.Elements
             set => SetValue(IsEditingProperty, value);
         }
 
+        public ICommand CancelEditCommand
+        {
+            get => (ICommand)GetValue(CancelEditCommandProperty);
+            set => SetValue(CancelEditCommandProperty, value);
+        }
+
         private void ButtonAdd_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             if (ItemsSource != null)
             {
-                ButtonAdd.Visibility = Visibility.Visible;
-                ButtonEdit.Visibility = Visibility.Visible;
+                ButtonPanel.Visibility = Visibility.Visible;
             }
         }
 
         private void ButtonAdd_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            ButtonAdd.Visibility = Visibility.Collapsed;
-            ButtonEdit.Visibility = Visibility.Collapsed;
-        }
-
-        private void NameList_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
-        {
-            if (ItemsSource is IList<PoolList> list)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].Order = i;
-                }
-            }
+            ButtonPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
+

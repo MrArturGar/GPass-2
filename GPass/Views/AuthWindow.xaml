@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="GPass.Views.AuthWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="GPass" 
+                   FontSize="24" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,20"/>
+
+        <StackPanel Grid.Row="1" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Spacing="20" 
+                    Width="300">
+
+            <ToggleButton Content="Регистрация" Command="{Binding ToggleRegistrationCommand}"/>
+
+            <!-- Выбор или ввод имени хранилища -->
+            <ComboBox x:Name="StorageComboBox"
+                      ItemsSource="{Binding StorageList}"
+                      SelectedItem="{Binding SelectedStorage, Mode=TwoWay}"
+                      IsEnabled="{Binding IsLoginEnabled}"
+                      Visibility="{Binding IsRegistration, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverted}"/>
+            <TextBox x:Name="StorageNameBox"
+                     Text="{Binding SelectedStorage, Mode=TwoWay}"
+                     PlaceholderText="Имя нового хранилища (.db)"
+                     IsEnabled="{Binding IsLoginEnabled}"
+                     Visibility="{Binding IsRegistration, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            <TextBox x:Name="LoginBox" 
+                     PlaceholderText="Логин" 
+                     IsEnabled="{Binding IsLoginEnabled}"/>
+
+            <PasswordBox x:Name="PasswordBox" 
+                        PlaceholderText="Пароль" 
+                        IsEnabled="{Binding IsLoginEnabled}"/>
+
+            <PasswordBox x:Name="ConfirmPasswordBox" 
+                        PlaceholderText="Подтвердите пароль" 
+                        IsEnabled="{Binding IsLoginEnabled}"
+                        Visibility="{Binding IsRegistration, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="FirstNumber" 
+                         Text="{Binding FirstNumber, Mode=OneWay}" 
+                         IsReadOnly="True" 
+                         HorizontalAlignment="Right"/>
+
+                <TextBlock Text="+" 
+                          Grid.Column="1" 
+                          VerticalAlignment="Center" 
+                          Margin="5,0"/>
+
+                <TextBox x:Name="SecondNumber" 
+                         Text="{Binding SecondNumber, Mode=OneWay}" 
+                         IsReadOnly="True" 
+                         Grid.Column="2" 
+                         HorizontalAlignment="Left"/>
+
+                <TextBlock Text="=" 
+                          Grid.Column="3" 
+                          VerticalAlignment="Center" 
+                          Margin="5,0"/>
+
+                <TextBox x:Name="ResultBox" 
+                         PlaceholderText="Результат" 
+                         Grid.Column="4" 
+                         Width="100"
+                         Margin="0,5"/>
+            </Grid>
+
+            <Button Content="Войти" 
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding Text, ElementName=ResultBox}"/>
+
+            <Button Content="Windows Hello" 
+                    Command="{Binding WindowsHelloCommand}"
+                    Visibility="{Binding IsWindowsHelloAvailable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" 
+                   Text="{Binding ErrorMessage}" 
+                   Foreground="Red" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,10"/>
+    </Grid>
+</Window> 

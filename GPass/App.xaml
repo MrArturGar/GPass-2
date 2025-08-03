@@ -12,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
             <resources:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <resources:BooleanToListViewNotSelectableConverter x:Key="BooleanToListViewNotSelectableConverter" />
             <resources:EditButtonContentConverter x:Key="EditButtonContentConverter" />
             <resources:ListViewReorderModeConverter x:Key="ListViewReorderModeConverter" />
         </ResourceDictionary>

@@ -21,9 +21,9 @@ using Windows.Foundation.Collections;
 
 namespace GPass.Views.Elements
 {
-    public sealed partial class CredPoolControl : UserControl
+    public sealed partial class CredentialSetControl : UserControl
     {
-        public CredPoolControl()
+        public CredentialSetControl()
         {
             this.InitializeComponent();
         }
@@ -32,36 +32,43 @@ namespace GPass.Views.Elements
             DependencyProperty.Register(
                 nameof(ItemsSource),
                 typeof(IEnumerable),
-                typeof(CredPoolControl),
+                typeof(CredentialSetControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
                 nameof(SelectedItem),
                 typeof(object),
-                typeof(CredPoolControl),
+                typeof(CredentialSetControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty AddCommandProperty =
             DependencyProperty.Register(
                 nameof(AddCommand),
                 typeof(ICommand),
-                typeof(CredPoolControl),
+                typeof(CredentialSetControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty ToggleEditCommandProperty =
             DependencyProperty.Register(
                 nameof(ToggleEditCommand),
                 typeof(ICommand),
-                typeof(CredPoolControl),
+                typeof(CredentialSetControl),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty IsEditingProperty =
             DependencyProperty.Register(
                 nameof(IsEditing),
                 typeof(bool),
-                typeof(CredPoolControl),
+                typeof(CredentialSetControl),
                 new PropertyMetadata(false));
+
+        public static readonly DependencyProperty CancelEditCommandProperty =
+            DependencyProperty.Register(
+                nameof(CancelEditCommand),
+                typeof(ICommand),
+                typeof(CredentialSetControl),
+                new PropertyMetadata(null));
 
         public ICommand AddCommand
         {
@@ -93,30 +100,24 @@ namespace GPass.Views.Elements
             set => SetValue(IsEditingProperty, value);
         }
 
+        public ICommand CancelEditCommand
+        {
+            get => (ICommand)GetValue(CancelEditCommandProperty);
+            set => SetValue(CancelEditCommandProperty, value);
+        }
+
         private void ButtonAdd_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             if (ItemsSource != null)
             {
-                ButtonAdd.Visibility = Visibility.Visible;
-                ButtonEdit.Visibility = Visibility.Visible;
+                ButtonPanel.Visibility = Visibility.Visible;
             }
         }
 
         private void ButtonAdd_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            ButtonAdd.Visibility = Visibility.Collapsed;
-            ButtonEdit.Visibility = Visibility.Collapsed;
-        }
-
-        private void NameList_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
-        {
-            if (ItemsSource is IList<PoolList> list)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].Order = i;
-                }
-            }
+            ButtonPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
+

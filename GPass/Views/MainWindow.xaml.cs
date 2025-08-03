@@ -1,5 +1,6 @@
-using GPass.ViewModels;
 using Microsoft.UI.Xaml;
+using GPass.Data;
+using GPass.ViewModels;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -24,10 +25,13 @@ namespace GPass.Views
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainViewModel ViewModel { get; }
+
+        public MainWindow(AppDbContext dbContext)
         {
             this.InitializeComponent();
-            RootGrid.DataContext = new MainViewModel();
+            ViewModel = new MainViewModel(dbContext);
+            RootGrid.DataContext = ViewModel;
         }
     }
 }

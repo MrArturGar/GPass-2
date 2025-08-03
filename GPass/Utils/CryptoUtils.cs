@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GPass.Utils
 {
-    class Crypto
+    class CryptoUtils
     {
         public byte[] Encrypt(byte[] _key, byte[] _password, byte[] _data)
         {
@@ -149,6 +149,14 @@ namespace GPass.Utils
                 }
 
             }
+        }
+
+        public static byte[] GenerateAuthKey()
+        {
+            using var rng = RandomNumberGenerator.Create();
+            var key = new byte[32];
+            rng.GetBytes(key);
+            return key;
         }
 
     }
